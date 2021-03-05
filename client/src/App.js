@@ -1,24 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect} from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Login from './pages/auth/Login';
+import Home from './pages/Home';
+import Register from './pages/auth/Register';
+import Header from './components/nav/Header';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+import RegisterComplete from './pages/auth/RegisterComplete';
+import { auth } from './firebase';
+import { useDispatch } from 'react-redux';
 
-function App() {
+
+const  App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async(user) => {
+      if (user) {
+        const idTokenResult = await user.getIdTokenResult();
+
+        dispatch({
+          type:'LOGGED_IN_USER',
+          payload: {
+            email: user.email,
+            token: idTokenResult.token
+          }
+        })
+      }
+    })
+  },[])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ToastContainer/>
+      <Header/>
+      <Switch>
+        <Route exact path="/" component={Home}/>
+        <Route exact path="/login" component={Login}/>
+        <Route exact path="/register" component={Register}/>
+        <Route exact path="/register/complete" component={RegisterComplete}/>
+        
+      </Switch>
+    </>
   );
 }
 
