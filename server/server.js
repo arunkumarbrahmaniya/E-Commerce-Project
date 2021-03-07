@@ -4,19 +4,13 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
-
 require('dotenv').config();
-
-
-
-const authRoutes = require('./routes/auth');
-
 const app = express();
-
 mongoose.connect(process.env.DATABASE, {
+    keepAlive: true,
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: true
+    useFindAndModify: false
 })
 .then(() => console.log("DB CONNECTED"))
 .catch((error) => console.log(`DB COnnection ERROR ${error}`))

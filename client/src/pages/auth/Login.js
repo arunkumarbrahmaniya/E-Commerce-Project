@@ -32,7 +32,7 @@ const Login = ({history}) => {
            const { user } = result;
            const idTokenResult = await user.getIdTokenResult();
            createOrUpdateUser(idTokenResult.token)
-           .then(res => console.log("REQ", res))
+           .then(res => console.log("USER CREATION AND UPDATE", res))
            .catch(error => {
                
            })
