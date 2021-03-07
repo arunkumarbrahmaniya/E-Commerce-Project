@@ -17,7 +17,7 @@ const Login = ({history}) => {
         if(user && user.token){
             history.push("/");
         } 
-    }, [user]);
+    }, [user, history]);
     let dispatch = useDispatch();
     const roleBasedRedirect = (res) => {
         if (res.data.data.role === 'admin') {

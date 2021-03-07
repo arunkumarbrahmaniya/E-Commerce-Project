@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UserRoute from '../routes/UserRoute';
 
 const UserNav = () => {
     return (
