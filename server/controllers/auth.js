@@ -5,18 +5,28 @@ exports.createOrUpdateUser = async(req, res) => {
         await User.findOne({email})
         .then(async(user) => {
             if (user) {
-                return res.json({user})
+                return res.json({data:user})
             } else {
                 const newUser = new User({
                     email,
-                    name,
+                    name: email.split('@')[0],
                     picture,
                 });
                 await newUser.save();
-                return res.json({newUser});
+                return res.json({data:newUser});
             }
         })
         .catch((error) => {
-            console.log("ERROR!!!", error)
+            res.status(401).send({error: error.message})
         })
-}
+};
+
+exports.currentUser = async(req, res) => {
+    await User.findOne({email: req.user.email})
+    .then(async(user) => {
+        res.json({data:user});
+    })
+    .catch(error => {
+        res.status(404).send({error: error.message})
+    }) 
+};

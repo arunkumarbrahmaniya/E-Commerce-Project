@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { auth } from '../../firebase';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { createOrUpdateUser } from '../../functions/auth';
 
 const RegisterComplete = ({history}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { user } = useSelector((state) => ({...state}));
     useEffect(() => {
         setEmail(localStorage.getItem("emailForRegistration"))
     }, [])
+    let dispatch = useDispatch();
     const handleSubmit = async(e) => {
         e.preventDefault();
         if (!email || !password) {
@@ -25,8 +29,22 @@ const RegisterComplete = ({history}) => {
                 let user = auth.currentUser;
                 await user.updatePassword(password);
                 const idTokenResult = await user.getIdTokenResult();
-
-
+                createOrUpdateUser(idTokenResult.token)
+                .then((res) =>
+                dispatch({
+                    type:"LOGGED_IN_USER",
+                    payload: {
+                        email: res.data.data.email,
+                        token: idTokenResult.token,
+                        role: res.data.data.role,
+                        _id: res.data.data._id,
+                        name: res.data.data.name
+                    },
+                    }),
+                    )
+                .catch(error => {
+                    toast.error(error.message);
+                })
                 history.push('/');
             }
         } catch(error) {
@@ -52,7 +70,7 @@ const RegisterComplete = ({history}) => {
                     placeholder="Enter your password"
                 />
                 <br/>
-                <button type="submit" className="btn btn-raised">Register</button>
+                <button type="submit" className="btn btn-raised">Complete Registeration</button>
             </form>
         )
     }
