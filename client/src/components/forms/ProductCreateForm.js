@@ -1,7 +1,14 @@
 import React from 'react';
-import ProductCreate from '../../pages/admin/product/ProductCreate';
-
-const ProductCreateForm = ({handleSubmit, handleChange, values}) => {
+import { Select } from 'antd';
+const { Option } = Select;
+const ProductCreateForm = ({handleSubmit,
+    handleChange,
+    values,
+    handleCategoryChange,
+    subOptions,
+    showSub,
+    setValues
+}) => {
     const { 
         title, description, price,
         categories, category, subs,
@@ -134,6 +141,59 @@ const ProductCreateForm = ({handleSubmit, handleChange, values}) => {
                                 }
                             </select>
                         </div>
+                        <div className="form-group">
+                            <label>
+                                Category
+                            </label>
+                            <select
+                                name="category"
+                                className="form-control"
+                                onChange={handleCategoryChange}
+                            >
+                                <option>
+                                    Please Select Category
+                                </option>
+                                {
+                                    categories.length > 0 && categories.map((c) =>
+                                    (
+                                    <option key={c._id} value={c._id}>
+                                        {c.name}
+                                    </option>
+                                    )
+                                    )
+                                }
+                            </select>
+                        </div>
+                        {
+                            showSub ?
+                            <div>
+                            <label>
+                                Sub-Categories
+                            </label>
+                            <Select
+                                mode="multiple"
+                                style={{width:'100%'}}
+                                placeholder="Please Select Sub-Categories"
+                                value={subs}
+                                onChange={(value) => setValues({...values, subs: value})}
+                                name="subs"
+                            >
+                                {
+                                    subOptions.length &&  subOptions.map((options) => {
+                                        return (
+                                            <Option key={options._id} value={options._id}>
+                                                {
+                                                    options.name
+                                                }
+                                            </Option>
+                                        )
+                                    })
+                                }
+                            </Select>
+                        </div>
+                        : ""
+                        }
+                        <br/>
                         <button className="btn btn-outline-primary">
                             SAVE PRODUCT
                         </button>

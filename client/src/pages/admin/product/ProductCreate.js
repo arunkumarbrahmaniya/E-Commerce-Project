@@ -6,16 +6,21 @@ import {
     createProduct,
 } from '../../../functions/product';
 import ProductCreateForm from '../../../components/forms/ProductCreateForm';
+import {
+    getCategories,
+    getCategorySubs
+} from '../../../functions/category';
+
 const initialState = {
     title: '',
     description: "",
     price: "",
-    // categories: [],
-    // category: "",
-    // subs: [],
+    categories: [],
+    category: "",
+    subs: [],
     shipping: "",
     quantity:"",
-    // images:[],
+    images:[],
     colors: ["Black", "Brown", "Silver", "White","Blue"],
     brands: ["Apple", "Samsung", "Microsoft", "Lenovo","Asus"],
     color: "",
@@ -23,7 +28,18 @@ const initialState = {
 };
 const ProductCreate = () => {
     const [values, setValues] = useState(initialState);
+    const [subOptions, setsubOptions] = useState([]);
+    const [showSub, setShowSub] = useState(false);
+    
     const {user} = useSelector((state) => ({...state}));
+    
+    useEffect (() => {
+        loadCategories();
+    },[]);
+    const loadCategories = async() =>{
+        const res = await getCategories();
+        setValues({...values, categories: res.data});
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
         createProduct(values, user.token)
@@ -37,6 +53,16 @@ const ProductCreate = () => {
     }
     const handleChange = (e) => {
         setValues({...values, [e.target.name]: e.target.value})
+    }
+
+    const handleCategoryChange = (e) => {
+        e.preventDefault();
+        setValues({...values,subs:[], category: e.target.value});
+        getCategorySubs(e.target.value)
+        .then((res) => {
+            setsubOptions(res.data)
+        });
+        setShowSub(true);
     }
 
 
@@ -55,6 +81,10 @@ const ProductCreate = () => {
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
                         values={values}
+                        handleCategoryChange={handleCategoryChange}
+                        subOptions={subOptions}
+                        showSub={showSub}
+                        setValues={setValues}
                     />
                 </div>
             </div>
