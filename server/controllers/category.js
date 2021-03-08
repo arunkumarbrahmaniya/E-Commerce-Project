@@ -21,7 +21,7 @@ exports.remove = async(req, res) => {
         const deleted = await Category.findOneAndDelete({slug: req.params.slug});
         res.json(deleted);
     }catch(error){
-        res.status(400).send("delete failed")
+        res.status(400).send("Category delete failed")
     }
 }
 exports.update = async(req, res) => {
