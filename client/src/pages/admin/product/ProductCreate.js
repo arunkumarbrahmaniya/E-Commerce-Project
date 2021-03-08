@@ -10,7 +10,8 @@ import {
     getCategories,
     getCategorySubs
 } from '../../../functions/category';
-
+import FileUpload from '../../../components/forms/FileUpload';
+import { LoadingOutlined} from '@ant-design/icons';
 const initialState = {
     title: '',
     description: "",
@@ -30,6 +31,7 @@ const ProductCreate = () => {
     const [values, setValues] = useState(initialState);
     const [subOptions, setsubOptions] = useState([]);
     const [showSub, setShowSub] = useState(false);
+    const [loading, setLoading] = useState(false);
     
     const {user} = useSelector((state) => ({...state}));
     
@@ -74,9 +76,24 @@ const ProductCreate = () => {
                 </div>
                 <div className="col-md-10">
                     <h4>
-                        Create Product
+                        {
+                            loading ?
+                            <LoadingOutlined
+                                className="text-danger h1"
+                            />
+                            :
+                            "Create Product"
+                        }
                     </h4>
                     <hr/>
+                    <div className="p-3">
+                        <FileUpload
+                            values={values}
+                            setValues={setValues}
+                            setLoading={setLoading}
+
+                        />
+                    </div>
                     <ProductCreateForm
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
