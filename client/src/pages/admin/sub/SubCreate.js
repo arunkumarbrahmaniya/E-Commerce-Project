@@ -84,8 +84,8 @@ const SubCreate = () => {
 
     const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword)
     
-    return (
-        <div className="container-fluid">
+    return ( 
+        <div className="container-fluid p-4">
         <div className="row">
             <div className="col-md-2">
                 <AdminNav/>

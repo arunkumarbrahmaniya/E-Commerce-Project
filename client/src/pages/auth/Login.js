@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createOrUpdateUser } from '../../functions/auth';
 
-
 const Login = ({history}) => {
     const [email, setEmail] = useState('kumar.fairandfair@gmail.com');
     const [password, setPassword] = useState('AArr22@@');
@@ -50,8 +49,6 @@ const Login = ({history}) => {
            .catch(error => {
                toast.error(error.message);
            })
-           
-        //    history.push('/');
         } catch(error){
             toast.error(error.message);
             setLoading(false);
