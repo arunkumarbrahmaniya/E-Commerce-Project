@@ -3,6 +3,7 @@ import Resizer from 'react-image-file-resizer';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Avatar, Badge } from 'antd';
+
 const FileUpload = ({setValues, values, setLoading}) => {
     const {user} = useSelector((state) => ({...state}));
 
@@ -73,7 +74,6 @@ const FileUpload = ({setValues, values, setLoading}) => {
                             onClick={() =>handleImageRemove(image.public_id)}
                         >
                             <Avatar
-                                
                                 src={image.url}
                                 size={100}
                                 shape="square"
@@ -89,12 +89,12 @@ const FileUpload = ({setValues, values, setLoading}) => {
             <label className="btn btn-primary btn-raised">
                 Choose File
                 <input
-                type="file"
-                multiple
-                hidden
-                accept="images/*"
-                onChange={fileUploadAndResize}
-            />
+                    type="file"
+                    multiple
+                    hidden
+                    accept="images/*"
+                    onChange={fileUploadAndResize}
+                />
             </label>
         </div>
         </>

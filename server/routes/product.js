@@ -3,11 +3,11 @@ const router = express.Router();
 const { authCheck, adminCheck }  = require('../middlewares/auth');
 const {
     create,
-    read
+    listAll
  }  = require('../controllers/product');
 
  router.post('/product', authCheck, adminCheck, create);
- router.get('/products', read);
+ router.get('/products/:count', listAll);
 
 
 

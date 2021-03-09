@@ -1,14 +1,17 @@
-import React from 'react';
-import AdminNav from '../../components/nav/AdminNav'
+import React, { useState, useEffect } from 'react';
+import AdminNav from '../../components/nav/AdminNav';
 const AdminDashboard = () => {
+    
     return (
-        <div className="container-fluid">
+        <div className="container-fluid p-4">
         <div className="row">
             <div className="col-md-2">
                 <AdminNav/>
             </div>
             <div className="col">
-                Admin Dashboard Page
+                <h4>
+                    Admin Dashboard
+                </h4>
             </div>
         </div>
     </div>
