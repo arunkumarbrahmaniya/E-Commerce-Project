@@ -7,6 +7,7 @@ import {
 import productDefault from '../../images/default.png';
 import { Link } from 'react-router-dom';
 import LoadingCard from '../../components/cards/LoadingCard';
+import showAverage from '../../functions/rating';
 
 const {Meta} = Card;
 
@@ -14,6 +15,14 @@ const ProductCard = ({product}) => {
     const {title, description,images, slug} = product;
 
     return (
+        <>
+        {
+                product && product.rating && product.rating.length > 0 ?
+                showAverage(product) : 
+                <div className="text-center pt-1 pb-3">
+                    No ratings yet
+                </div>
+            }
         <Card
         cover={
             <img
@@ -40,6 +49,7 @@ const ProductCard = ({product}) => {
                 description={`${description && description.substring(0, 30)}...`}
             />
         </Card>
+        </>
     )
 }
 

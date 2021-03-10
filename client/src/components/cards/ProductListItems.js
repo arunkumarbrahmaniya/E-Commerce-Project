@@ -25,7 +25,7 @@ const ProductListItems = ({product}) => {
                 category && (
                     <li className="list-group-item">
                 Category <Link to={`/category/${category.slug}`} className="label label-default label-pill pull-xs-right">
-                    ${category.name}
+                    {category.name}
                 </Link>
             </li>
                 )
