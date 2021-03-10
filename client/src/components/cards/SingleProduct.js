@@ -9,11 +9,15 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import {Carousel} from 'react-responsive-carousel';
 import Default from '../../images/default.png';
 import ProductListItems from './ProductListItems';
+import StarRatings from 'react-star-ratings';
+import RatingModal from '../modal/RatingModal';
+import showAverage from '../../functions/rating';
+
 const {Meta} = Card;
 const {TabPane} = Tabs;
-const SingleProduct =({product}) => {
+const SingleProduct =({product, onStarClick, star}) => {
 
-    const {title, images, description} = product;
+    const {title, images, description, _id} = product;
 
     return (
         <>
@@ -40,10 +44,10 @@ const SingleProduct =({product}) => {
             <Card
                 cover={
                     <img
-                src={Default}
-                style={{height:150, objectFit:"cover"}}
-                className="mb-3 card-image"
-            />
+                        src={Default}
+                        style={{height:150, objectFit:"cover"}}
+                        className="mb-3 card-image"
+                    />
                 }
             >
 
@@ -65,14 +69,28 @@ const SingleProduct =({product}) => {
 
         <div className="col-md-5">
             <h1 className="bg-info p-3">{title}</h1>
+            {
+                product && product.rating && product.rating.length > 0 ?
+                showAverage(product) : "No ratings yet"
+            }
             <Card
                 actions={[
                     <>
-                        <ShoppingCartOutlined className="text-success"/> Add to Cart
+                        <ShoppingCartOutlined className="text-info"/> Add to Cart
                     </>,
                     <Link to={`/`}>
-                       <HeartOutlined className="text-danger"/><br/> Add to Wishlist
+                       <HeartOutlined className="text-success"/><br/> Add to Wishlist
                     </Link>,
+                    <RatingModal>
+                    <StarRatings
+                        name={_id}
+                        numberOfStars={5}
+                        rating={star}
+                        changeRating={onStarClick}
+                        isSelectable={true}
+                        starRatedColor="red"
+                    />
+                </RatingModal>
                 ]}
             >
                 <ProductListItems
