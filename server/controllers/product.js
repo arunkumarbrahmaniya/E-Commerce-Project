@@ -44,11 +44,12 @@ exports.read = async(req, res) => {
 
 exports.update = async(req, res) => {
     try {
+        let data = req.body;
         if (req.body.title) {
             req.body.slug = slugify(req.body.title);
         }
         const updatedProduct = await Product.findOneAndUpdate({slug: req.params.slug},
-            req.body,
+            data,
             {new:true}
         ).exec();
         res.json(updatedProduct);
@@ -255,7 +256,8 @@ const handleColor = async(req, res, color) => {
     .exec();
     res.json(products);
 }
-const handleBrand = async(req, res, brand) => {
+const handleBrand = async(req, res, b) => {
+    let brand = b;
     const products = await Product.find({
         brand
     })

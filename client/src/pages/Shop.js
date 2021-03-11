@@ -22,7 +22,7 @@ import {
 } from '@ant-design/icons';
 import showAverage from '../functions/rating';
 import Star from '../components/forms/Star';
-const { SubMenu, ItemGroup } = Menu;
+const { SubMenu } = Menu;
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
