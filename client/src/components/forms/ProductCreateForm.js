@@ -11,9 +11,9 @@ const ProductCreateForm = ({handleSubmit,
 }) => {
     const { 
         title, description, price,
-        categories, category, subs,
-        shipping, quantity, images,
-        color, colors, brands, brand,
+        categories, subs
+        , quantity
+        , colors, brands,
     } = values;
     return (
         <form onSubmit={handleSubmit}>

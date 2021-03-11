@@ -15,8 +15,8 @@ const ProductUpdateForm = ({
 }) => {
     const { 
         title, description, price,
-        category, subs,
-        shipping, quantity, images,
+        category,
+        shipping, quantity,
         color, colors, brands, brand,
     } = values;
     return (

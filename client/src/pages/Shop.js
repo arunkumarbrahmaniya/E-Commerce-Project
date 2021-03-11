@@ -20,7 +20,6 @@ import {
     FireOutlined,
     ShrinkOutlined
 } from '@ant-design/icons';
-import showAverage from '../functions/rating';
 import Star from '../components/forms/Star';
 const { SubMenu } = Menu;
 const Shop = () => {
@@ -58,6 +57,7 @@ const Shop = () => {
     const loadAllProducts = () => {
         getProductByCount(12).then((product) => {
             setProducts(product.data);
+            console.log("DEFAULT LOADED DATA", product.data);
             setLoading(false);
         });
     };
@@ -78,9 +78,9 @@ const Shop = () => {
 
     // load product based on price range
 
-    useEffect(() => {
-        fetchProducts({price});
-    },[ok]);
+    // useEffect(() => {
+    //     fetchProducts({price});
+    // },[ok]);
 
     const handleSlider = (value) => {
         dispatch({
@@ -98,7 +98,7 @@ const Shop = () => {
         setColor("");
         setShipping('');
         setTimeout(() => {
-            setOk(!ok);
+            fetchProducts({price});
         }, 300);
     }
 
@@ -222,6 +222,7 @@ const handleSub = (sub) => {
 
 const showBrands = () => brands.map((b) => (
     <Radio
+        key={b}
         value={b}
         name={b}
         checked={b === brand}
@@ -257,6 +258,7 @@ const handleBrand = (e) => {
 
 const showColors = () => colors.map((c) =>(
     <Radio
+        key={c}
         value={c}
         name={c}
         checked={c === color}
@@ -410,7 +412,7 @@ const handleShipping = (e) => {
                     }
                     <div className="row">
                         {
-                            products.map((p) =>(
+                            products && products.map((p) =>(
                                 <div key={p._id} className="col-md-4">
                                     <ProductCard
                                         product={p}

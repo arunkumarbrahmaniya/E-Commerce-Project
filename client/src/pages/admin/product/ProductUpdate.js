@@ -6,7 +6,6 @@ import {
     getSingleProduct,
     updateProduct
 } from '../../../functions/product';
-import ProductCreateForm from '../../../components/forms/ProductCreateForm';
 import {
     getCategories,
     getCategorySubs
@@ -33,7 +32,6 @@ const ProductUpdate = ({match, history}) => {
     const {user} = useSelector((state) => ({...state}));
     const [values, setValues] = useState(initialState);
     const [subOptions, setsubOptions] = useState([]);
-    const [showSub, setShowSub] = useState(false);
     const [categories, setCategories] = useState([]);
     const [arrayOfSubs, setArrayOfSubs] = useState([]);
     const [selectedCategory,setSelectedCategory] = useState('');

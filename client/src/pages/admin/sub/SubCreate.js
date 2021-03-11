@@ -5,7 +5,6 @@ import {useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
     createSub,
-    getSub,
     getSubs,
     removeSub
 } from '../../../functions/sub';

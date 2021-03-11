@@ -14,6 +14,15 @@ const BestSellers = () => {
     const [page, setPage] = useState(1);
     const [productsCount, setProductsCount] = useState(0);
     
+    const loadAllProducts = () => {
+        setLoading(true);
+        // sort, order, limit
+        getProducts('sold','desc', page)
+        .then((res) => {
+            setProducts(res.data);
+            setLoading(false);
+        });
+    };
     useEffect(() => {
         loadAllProducts();
     }, [page]);
@@ -25,16 +34,6 @@ const BestSellers = () => {
         })
     },[]);
 
-
-    const loadAllProducts = () => {
-        setLoading(true);
-        // sort, order, limit
-        getProducts('sold','desc', page)
-        .then((res) => {
-            setProducts(res.data);
-            setLoading(false);
-        });
-    };
 
     return (
         <>

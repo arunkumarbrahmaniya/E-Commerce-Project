@@ -13,7 +13,6 @@ import StarRatings from 'react-star-ratings';
 import RatingModal from '../modal/RatingModal';
 import showAverage from '../../functions/rating';
 
-const {Meta} = Card;
 const {TabPane} = Tabs;
 const SingleProduct =({product, onStarClick, star}) => {
 
@@ -35,6 +34,7 @@ const SingleProduct =({product, onStarClick, star}) => {
                             <img
                                 src={image.url}
                                 key={image.public_id}
+                                alt="shopping"
                             />
                         )
                     })
@@ -47,6 +47,7 @@ const SingleProduct =({product, onStarClick, star}) => {
                         src={Default}
                         style={{height:150, objectFit:"cover"}}
                         className="mb-3 card-image"
+                        alt="shopping"
                     />
                 }
             >

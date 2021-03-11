@@ -6,7 +6,6 @@ import {
 } from '@ant-design/icons';
 import productDefault from '../../images/default.png';
 import { Link } from 'react-router-dom';
-import LoadingCard from '../../components/cards/LoadingCard';
 import showAverage from '../../functions/rating';
 
 const {Meta} = Card;
@@ -29,6 +28,7 @@ const ProductCard = ({product}) => {
                 src={images && images.length ? images[0].url : productDefault}
                 style={{height:150, objectFit:"cover"}}
                 className="p-1"
+                alt="shopping"
             />
         }
         actions={[

@@ -2,20 +2,14 @@ import React, {useState, useEffect} from 'react';
 import AdminNav from '../../../components/nav/AdminNav'
 import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
-    createSub,
     getSub,
-    removeSub,
     updateSub
 } from '../../../functions/sub';
 import {
     getCategories
 } from '../../../functions/category';
-import {
-    EditOutlined,
-    DeleteOutlined
-} from '@ant-design/icons';
+
 import CategoryForm from '../../../components/forms/CategoryForm';
 import LocalSearch from '../../../components/forms/LocalSearch';
 const SubUpdate = ({match, history}) => {
