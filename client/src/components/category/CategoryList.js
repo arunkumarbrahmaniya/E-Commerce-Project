@@ -3,7 +3,9 @@ import {Link} from 'react-router-dom';
 import {
     getCategories
 } from '../../functions/category';
-
+import {
+    LoadingOutlined
+} from '@ant-design/icons';
 const CategoryList = () => {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -13,7 +15,6 @@ const CategoryList = () => {
         getCategories()
         .then((res) => {
             setCategories(res.data);
-            debugger
             setLoading(false);
         });
     },[]);
@@ -34,9 +35,14 @@ return (
         <div className="row">
             {
                 loading ?
-                <h4 className="text-center text-danger">
+                <h4 className="col text-center text-danger">
+                <span className="mr-3">
                     Loading...
-                </h4>
+                </span>
+                 <LoadingOutlined
+                     style={{fontSize:30}}
+                 />
+             </h4>
                 : 
                 showCategories()
             }

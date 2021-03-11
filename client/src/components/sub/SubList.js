@@ -3,7 +3,9 @@ import {Link} from 'react-router-dom';
 import {
     getSubs
 } from '../../functions/sub';
-
+import {
+    LoadingOutlined
+} from '@ant-design/icons';
 const SubList = () => {
     const [subs, setSubs] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -33,8 +35,13 @@ return (
         <div className="row">
             {
                 loading ?
-                <h4 className="text-center text-danger">
-                    Loading...
+                <h4 className="col text-center text-danger">
+                   <span className="mr-3">
+                       Loading...
+                   </span>
+                    <LoadingOutlined
+                        style={{fontSize:30}}
+                    />
                 </h4>
                 : 
                 showSubs()
