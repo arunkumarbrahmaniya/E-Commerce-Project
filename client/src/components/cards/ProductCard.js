@@ -8,11 +8,16 @@ import productDefault from '../../images/default.png';
 import { Link } from 'react-router-dom';
 import showAverage from '../../functions/rating';
 import _ from 'lodash';
+import { useSelector, useDispatch } from 'react-redux';
+
 const {Meta} = Card;
 
 const ProductCard = ({product}) => {
     const {title, description,images, slug, price} = product;
     const [tooltip, setTooltip] = useState('Click to add');
+    const dispatch = useDispatch();
+    const {user, cart} = useSelector((state) => ({...state}));
+    
     const handleAddCart = () => {
         let cart = [];
         if(typeof window !== 'undefined') {
@@ -25,6 +30,14 @@ const ProductCard = ({product}) => {
         let unique = _.uniqWith(cart,_.isEqual);
         localStorage.setItem('cart', JSON.stringify(unique));
         setTooltip('Added');
+        dispatch({
+            type: "ADD_TO_CART",
+            payload: unique,
+        });
+        dispatch({
+            type: "SET_VISIBLE",
+            payload: true,
+        })
         }
     }
 
@@ -54,7 +67,7 @@ const ProductCard = ({product}) => {
             </Link>,
             <>
             <Tooltip title={tooltip}>
-                <span class="text-link block" onClick={handleAddCart}>
+                <span className="text-link block" onClick={handleAddCart}>
                 <ShoppingCartOutlined
                     className="text-danger" 
                 /> <br/> Add to Cart

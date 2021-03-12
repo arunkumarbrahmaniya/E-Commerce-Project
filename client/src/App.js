@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import { Switch, Route } from 'react-router-dom';
+import SideDrawer from './components/drawer/SideDrawer';
 import Login from './pages/auth/Login';
 import Home from './pages/Home';
 import Register from './pages/auth/Register';
@@ -28,6 +29,7 @@ import Product from './pages/Product';
 import CategoryHome from './pages/category/CategoryHome';
 import SubHome from './pages/sub/SubHome';
 import Shop from './pages/Shop';
+import Cart from './pages/Cart';
 const  App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -59,6 +61,7 @@ const  App = () => {
     <>
       <ToastContainer/>
       <Header/>
+      <SideDrawer/>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route exact path="/login" component={Login}/>
@@ -80,6 +83,7 @@ const  App = () => {
         <Route exact path="/category/:slug" component={CategoryHome}/>
         <Route exact path="/subs/:slug" component={SubHome}/>
         <Route exact path="/shop" component={Shop}/>
+        <Route exact path="/cart" component={Cart}/>
         
       </Switch>
     </>

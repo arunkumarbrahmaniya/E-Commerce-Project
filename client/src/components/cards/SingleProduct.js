@@ -1,5 +1,5 @@
-import React from 'react';
-import {Card, Tabs} from 'antd';
+import React, {useState} from 'react';
+import {Card, Tabs, Tooltip} from 'antd';
 import { Link } from 'react-router-dom';
 import {
     HeartOutlined,
@@ -12,12 +12,38 @@ import ProductListItems from './ProductListItems';
 import StarRatings from 'react-star-ratings';
 import RatingModal from '../modal/RatingModal';
 import showAverage from '../../functions/rating';
-
+import {useSelector, useDispatch} from 'react-redux';
+import _ from 'lodash';
 const {TabPane} = Tabs;
 const SingleProduct =({product, onStarClick, star}) => {
 
     const {title, images, description, _id} = product;
-
+    const [tooltip, setTooltip] = useState('Click to add');
+    const {user, cart} = useSelector((state) => ({...state}));
+    const dispatch = useDispatch();
+    const handleAddCart = () => {
+        let cart = [];
+        if(typeof window !== 'undefined') {
+            if(localStorage.getItem('cart')) {
+                cart = JSON.parse(localStorage.getItem('cart'))
+            }
+            cart.push({...product,
+            count: 1
+        });
+        let unique = _.uniqWith(cart,_.isEqual);
+        localStorage.setItem('cart', JSON.stringify(unique));
+        setTooltip('Added');
+        dispatch({
+            type: "ADD_TO_CART",
+            payload: unique,
+        });
+        dispatch({
+            type: "SET_VISIBLE",
+            payload: true,
+        })
+        }
+    }
+    
     return (
         <>
         <div className="col-md-7">
@@ -80,7 +106,13 @@ const SingleProduct =({product, onStarClick, star}) => {
             <Card
                 actions={[
                     <>
-                        <ShoppingCartOutlined className="text-info"/> Add to Cart
+                        <Tooltip title={tooltip}>
+                            <span className="text-link block" onClick={handleAddCart}>
+                            <ShoppingCartOutlined
+                                className="text-danger" 
+                            /> <br/> Add to Cart
+                </span>
+            </Tooltip>
                     </>,
                     <Link to={`/`}>
                        <HeartOutlined className="text-success"/><br/> Add to Wishlist
