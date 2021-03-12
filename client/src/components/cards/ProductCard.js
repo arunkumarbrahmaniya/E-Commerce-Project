@@ -17,7 +17,6 @@ const ProductCard = ({product}) => {
     const [tooltip, setTooltip] = useState('Click to add');
     const dispatch = useDispatch();
     const {user, cart} = useSelector((state) => ({...state}));
-    
     const handleAddCart = () => {
         let cart = [];
         if(typeof window !== 'undefined') {
@@ -27,7 +26,7 @@ const ProductCard = ({product}) => {
             cart.push({...product,
             count: 1
         });
-        let unique = _.uniqWith(cart,_.isEqual);
+        let unique = _.uniqBy(cart,'_id');
         localStorage.setItem('cart', JSON.stringify(unique));
         setTooltip('Added');
         dispatch({

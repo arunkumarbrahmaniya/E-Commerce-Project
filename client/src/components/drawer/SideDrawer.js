@@ -54,6 +54,9 @@ const SideDrawer = () => {
                                     />
                                 )
                             }
+                            {/* {
+                                JSON.stringify(cart)
+                            } */}
                         </div>
                     </div>
                 ))

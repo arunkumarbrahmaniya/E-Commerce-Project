@@ -30,7 +30,8 @@ const SingleProduct =({product, onStarClick, star}) => {
             cart.push({...product,
             count: 1
         });
-        let unique = _.uniqWith(cart,_.isEqual);
+        let unique = _.uniqBy(cart,'_id');
+        console.log("UNI",(unique) )
         localStorage.setItem('cart', JSON.stringify(unique));
         setTooltip('Added');
         dispatch({
