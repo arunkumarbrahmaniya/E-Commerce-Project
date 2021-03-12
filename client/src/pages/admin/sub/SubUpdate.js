@@ -18,14 +18,12 @@ const SubUpdate = ({match, history}) => {
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
     const [parent, setParent] = useState('');
-    
-    const [category, setCategory] = useState("");
     const [keyword, setKeyword] = useState("");
     
     useEffect (() => {
         loadCategories();
         loadSub();
-    },[]);
+    });
     const loadCategories = async() =>{
         const res = await getCategories();
         setCategories(res.data);
@@ -48,17 +46,14 @@ const SubUpdate = ({match, history}) => {
             toast.success(`"${res.data.name}" is Updated`);
             history.push('/admin/sub');
         })
-        .catch(error => {
+        .catch((error) => {
             setLoading(false);
             if (error.response.status === 400) {
                 toast.error(error.response.data)
             }
         })
     }
-    
 
-    const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword)
-    
     return (
         <div className="container-fluid">
         <div className="row">

@@ -16,7 +16,7 @@ const SubHome = ({match}) => {
             setProducts(res.data.products);
             setLoading(false);
         })
-    },[]);
+    },[slug]);
 
     return (
         <div className="container-fluid">

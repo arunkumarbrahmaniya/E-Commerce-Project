@@ -22,7 +22,7 @@ const Product = ({match}) => {
             );
             existingRatingObject && setStar(existingRatingObject.star);
         }
-    })
+    },[product.rating, user]);
     const loadingSingleProduct = () => {
         getSingleProduct(slug)
         .then((res) => {

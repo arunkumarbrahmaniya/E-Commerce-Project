@@ -28,7 +28,6 @@ const Shop = () => {
     const search = useSelector((state) => ({...state}));
     const {text} = search.search;
     const [price, setPrice] = useState([0,0]);
-    const [ok, setOk] = useState(false);
     const [categories, setCategories] = useState([]);
     const [categoriesIds, setCategoriesIds] = useState([]);
     const [star, setStar] = useState('');
@@ -57,7 +56,6 @@ const Shop = () => {
     const loadAllProducts = () => {
         getProductByCount(12).then((product) => {
             setProducts(product.data);
-            console.log("DEFAULT LOADED DATA", product.data);
             setLoading(false);
         });
     };

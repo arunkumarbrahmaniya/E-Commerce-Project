@@ -54,11 +54,11 @@ const ProductCard = ({product}) => {
             </Link>,
             <>
             <Tooltip title={tooltip}>
-                <a onClick={handleAddCart}>
+                <span class="text-link block" onClick={handleAddCart}>
                 <ShoppingCartOutlined
                     className="text-danger" 
                 /> <br/> Add to Cart
-                </a>
+                </span>
             </Tooltip>
             </>
         ]}
