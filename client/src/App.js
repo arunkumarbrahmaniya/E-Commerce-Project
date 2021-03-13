@@ -31,7 +31,7 @@ import SubHome from './pages/sub/SubHome';
 import Shop from './pages/Shop';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
-
+import CreateCoupanPage from './pages/admin/coupan/CreateCoupan';
 const  App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -87,6 +87,7 @@ const  App = () => {
         <Route exact path="/shop" component={Shop}/>
         <Route exact path="/cart" component={Cart}/>
         <Route exact path="/checkout" component={Checkout}/>
+        <AdminRoute exact path="/admin/coupan" component={CreateCoupanPage}/>
         
       </Switch>
     </>
