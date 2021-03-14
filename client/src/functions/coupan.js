@@ -11,7 +11,7 @@ export const removeCoupan = async(coupanId, authtoken) =>
     });
 
 export const createCoupan = async(coupan, authtoken) =>
-    await axios.post(`${process.env.REACT_APP_API}/coupon`, {coupan},
+    await axios.post(`${process.env.REACT_APP_API}/coupan`, {coupan},
         {
             headers: {
                 authtoken,

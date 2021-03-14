@@ -7,7 +7,8 @@ import { toast } from 'react-toastify';
 import {
     getUserCart,
     emptyUserCart,
-    saveUserAddress
+    saveUserAddress,
+    applyCoupan
 } from '../functions/user';
 
 
@@ -19,6 +20,10 @@ const Checkout = () => {
     const { user } = useSelector((state) => ({...state}));
     const [address, setAddress] = useState(''); 
     const [addressSaved, setAddressSaved] = useState(false);
+    const [coupan, setCoupan] = useState('');
+    const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
+    const [discountError, setDiscountError] = useState('');
+    
     useEffect(() => {
         getUserCart(user.token)
         .then((res) => {
@@ -48,19 +53,14 @@ const Checkout = () => {
         .then((res) => {
             setProducts([]);
             setTotal(0);
+            setTotalAfterDiscount(0);
+            setCoupan("");
             toast.success("Cart is empty,Continue Shopping.")
         })
     }
 
-    return (
-        <div className="row">
-            <div className="col-md-6">
-                <h4>
-                    Delivery Address
-                </h4>
-                <br/>
-                <br/>
-                <ReactQuill
+    const showAddress = () => <>
+        <ReactQuill
                     theme="snow"
                     value={address}
                     onChange={setAddress}
@@ -71,12 +71,66 @@ const Checkout = () => {
                 >
                     SAVE
                 </button>
+    </>
+    const showProductSummary = () =>
+        products.map((p,i) => (
+            <div key={i}>
+                <p>{p.product.title} ({p.color}) x {p.count} = {p.price * p.count}</p>
+            </div>
+        ))
+    const applyDiscountCoupan = () => {
+        applyCoupan(user.token, coupan)
+        .then((res) => {
+            if(res.data) {
+                setTotalAfterDiscount(res.data);
+                setDiscountError('');
+            }
+            if (res.data.error) {
+                setDiscountError(res.data.error);
+            }
+        })
+    }
+    const showApplyCoupan = () =>
+        <>
+            <input
+                type="text"
+                className="form-control"
+                onChange={(e) =>{setCoupan(e.target.value)
+                setDiscountError('')}}
+                value={coupan}
+            />
+            <button className="btn btn-primary mt-2 btn-raised"
+                onClick={applyDiscountCoupan}
+            >
+                Apply
+            </button>
+        </>
+
+    return (
+        <div className="row p-4">
+            <div className="col-md-6">
+                <h4>
+                    Delivery Address
+                </h4>
+                <br/>
+                <br/>
+                {
+                    showAddress()
+                }
                 <hr/>
                 <h4>
                     Got Coupon?
                 </h4>
                 <br/>
-                coupon input apply
+                {
+                    showApplyCoupan()
+                }
+                <br/>
+                {
+                    discountError && <p className="bg-danger p-2 text-light">{
+                        discountError
+                    }</p>
+                }
             </div>
             <div className="col-md-6">
                 <h4>
@@ -86,16 +140,24 @@ const Checkout = () => {
                 <p>Products {products.length}</p>
                 <hr/>
                 {
-                    products.map((p,i) => (
-                        <div key={i}>
-                            <p>{p.product.title} ({p.color}) x {p.count} = {p.price * p.count}</p>
-                        </div>
-                    ))
+                    showProductSummary()
                 }
                 <hr/>
                 <p>
                     Cart Total: {total}
                 </p>
+                {
+                    totalAfterDiscount > 0 && (
+                        <div className="bg-success p-2 text-light">
+                            Discount Applied: Total Payable:
+                            {
+                                totalAfterDiscount
+                            }
+                        </div>
+                        
+                    )
+                }
+                <br/>
                 <div className="row">
                     <div className="col-md-6">
                         <button className="btn btn-primary btn-raised"

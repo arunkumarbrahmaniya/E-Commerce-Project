@@ -6,7 +6,8 @@ const {
     userCart,
     getUserCart,
     emptyCart,
-    saveAddress
+    saveAddress,
+    applyCoupanToUserCart
 } = require("../controllers/user");
 // router.get('/user', (req, res) => {
 //     res.json({
@@ -18,4 +19,5 @@ router.post('/user/cart', authCheck, userCart);
 router.get('/user/cart', authCheck, getUserCart);
 router.delete('/user/cart', authCheck, emptyCart);
 router.post('/user/address', authCheck, saveAddress);
+router.post('/user/cart/coupan', authCheck, applyCoupanToUserCart);
 module.exports = router;

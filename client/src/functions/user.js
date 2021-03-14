@@ -33,3 +33,12 @@ export const saveUserAddress = async(authtoken, address) => {
 }
 );
 };
+
+export const applyCoupan = async(authtoken, coupan) => {
+    return await axios.post(`${process.env.REACT_APP_API}/user/cart/coupan`, {coupan}, {
+        headers:{
+        authtoken
+    },
+}
+);
+};

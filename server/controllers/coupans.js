@@ -3,7 +3,8 @@ const Coupan = require('../models/coupan');
 
 exports.create = async(req, res) => {
     try{
-        const {name, expiry, discount} = req.body;
+        console.log("REQ", req.body);
+        const {name, expiry, discount} = req.body.coupan;
         res.json(await new Coupan({name, expiry, discount}).save());
     }catch(error) {
         console.log("ERROR", error);
