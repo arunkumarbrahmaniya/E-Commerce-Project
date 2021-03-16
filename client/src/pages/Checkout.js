@@ -13,7 +13,7 @@ import {
 
 
 
-const Checkout = () => {
+const Checkout = ({history}) => {
     let dispatch = useDispatch();
     const [products, setProducts] = useState([]);
     const [total, setTotal] = useState(0);
@@ -48,7 +48,7 @@ const Checkout = () => {
         dispatch({
             type:"ADD_TO_CART",
             payload:[]
-        })
+        });
         emptyUserCart(user.token)
         .then((res) => {
             setProducts([]);
@@ -83,10 +83,18 @@ const Checkout = () => {
         .then((res) => {
             if(res.data) {
                 setTotalAfterDiscount(res.data);
+                dispatch({
+                    type:"COUPAN_APPLIED",
+                    payload: true
+                });
                 setDiscountError('');
             }
             if (res.data.error) {
                 setDiscountError(res.data.error);
+                dispatch({
+                    type:"COUPAN_APPLIED",
+                    payload: false
+                });
             }
         })
     }
@@ -162,6 +170,7 @@ const Checkout = () => {
                     <div className="col-md-6">
                         <button className="btn btn-primary btn-raised"
                             disabled={!addressSaved || !products.length}
+                            onClick={() => history.push('/payment')}
                         >
                             Place Order
                         </button>

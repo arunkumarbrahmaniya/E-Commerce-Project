@@ -52,7 +52,8 @@ const Login = ({history}) => {
                     token: idTokenResult.token,
                     role: res.data.data.role,
                     _id: res.data.data._id,
-                    name: res.data.data.name
+                    name: res.data.data.name,
+                    address: res.data.data.address
                 },
                 });
                 roleBasedRedirect(res);

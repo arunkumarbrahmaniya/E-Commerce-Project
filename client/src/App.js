@@ -32,6 +32,8 @@ import Shop from './pages/Shop';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import CreateCoupanPage from './pages/admin/coupan/CreateCoupan';
+import Payment from './pages/Payment';
+
 const  App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -47,7 +49,8 @@ const  App = () => {
             token: idTokenResult.token,
             role: res.data.data.role,
             _id: res.data.data._id,
-            name: res.data.data.name
+            name: res.data.data.name,
+            address: res.data.data.address
           },
           });
         }
@@ -88,6 +91,7 @@ const  App = () => {
         <Route exact path="/cart" component={Cart}/>
         <Route exact path="/checkout" component={Checkout}/>
         <AdminRoute exact path="/admin/coupan" component={CreateCoupanPage}/>
+        <UserRoute exact path="/payment" component={Payment}/>
         
       </Switch>
     </>
